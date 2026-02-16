@@ -7,13 +7,13 @@ import { createClient } from "@/lib/supabase/client";
 import { loginSchema } from "@/lib/validations/loginSchema";
 import { useRouter } from "next/navigation";
 
+
 export function LoginForm() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState<string | null>(null);
   const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
   const [loading, setLoading] = useState(false);
-  const supabase = createClient();
   const router = useRouter();
 
   async function handleSubmit(e: React.SubmitEvent<HTMLFormElement>) {
@@ -21,6 +21,15 @@ export function LoginForm() {
     setError(null);
     setFieldErrors({});
     setLoading(true);
+
+    let supabase;
+    try {
+      supabase = createClient();
+    } catch {
+      setError("Something went wrong. Please try again later.");
+      setLoading(false);
+      return;
+    }
 
     try {
       await loginSchema.validate(
@@ -49,11 +58,12 @@ export function LoginForm() {
     });
 
     if (error) {
-        setError(error.message);
-        setLoading(false);
-        return;
+      setError(error.message);
+      setLoading(false);
+      return;
     }
 
+    // Only push/redirect to dashboard if everything passed
     router.push("/dashboard");
   }
 
