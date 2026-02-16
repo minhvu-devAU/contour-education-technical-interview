@@ -1,26 +1,72 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #f8f9fb;
+  --foreground: #1a1a2e;
+  --primary: #1e3a5f;
+  --primary-hover: #2d4f7a;
+  --primary-light: #e8eef5;
+  --accent: #e8913a;
+  --accent-hover: #d17f2e;
+  --surface: #ffffff;
+  --muted: #6b7280;
+  --error: #dc2626;
+  --error-surface: #fef2f2;
+  --error-border: #fecaca;
+  --success: #16a34a;
+  --success-surface: #f0fdf4;
+  --border: #e2e5eb;
+  --input-border: #cbd5e1;
+  --input-focus: #1e3a5f;
+  --ring: rgba(30, 58, 95, 0.25);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-primary: var(--primary);
+  --color-primary-hover: var(--primary-hover);
+  --color-primary-light: var(--primary-light);
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-surface: var(--surface);
+  --color-muted: var(--muted);
+  --color-error: var(--error);
+  --color-error-surface: var(--error-surface);
+  --color-error-border: var(--error-border);
+  --color-success: var(--success);
+  --color-success-surface: var(--success-surface);
+  --color-border: var(--border);
+  --color-input-border: var(--input-border);
+  --color-input-focus: var(--input-focus);
+  --color-ring: var(--ring);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #0f1729;
+    --foreground: #e2e8f0;
+    --primary: #5b8cc9;
+    --primary-hover: #7aa3d9;
+    --primary-light: #1a2744;
+    --accent: #f0a050;
+    --accent-hover: #e8913a;
+    --surface: #1a2744;
+    --muted: #94a3b8;
+    --border: #2d3f5e;
+    --input-border: #3b5278;
+    --input-focus: #5b8cc9;
+    --ring: rgba(91, 140, 201, 0.3);
+    --error-surface: #3b1111;
+    --error-border: #7f1d1d;
+    --success-surface: #052e16;
   }
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans), system-ui, sans-serif;
 }
