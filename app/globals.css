@@ -59,8 +59,8 @@
     --input-border: #3b5278;
     --input-focus: #5b8cc9;
     --ring: rgba(91, 140, 201, 0.3);
-    --error-surface: #3b1111;
-    --error-border: #7f1d1d;
+    --error-surface: #5c1e1e;
+    --error-border: #a33b3b;
     --success-surface: #052e16;
   }
 }
