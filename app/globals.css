@@ -1,13 +1,13 @@
 @import "tailwindcss";
 
 :root {
-  --background: #f8f9fb;
+  --background: #ffffff;
   --foreground: #1a1a2e;
-  --primary: #1e3a5f;
-  --primary-hover: #2d4f7a;
-  --primary-light: #e8eef5;
-  --accent: #e8913a;
-  --accent-hover: #d17f2e;
+  --primary: #4a7cff;
+  --primary-hover: #3a6aef;
+  --primary-light: #ebf0ff;
+  --accent: #d4952e;
+  --accent-hover: #c08425;
   --surface: #ffffff;
   --muted: #6b7280;
   --error: #dc2626;
@@ -15,10 +15,10 @@
   --error-border: #fecaca;
   --success: #16a34a;
   --success-surface: #f0fdf4;
-  --border: #e2e5eb;
-  --input-border: #cbd5e1;
-  --input-focus: #1e3a5f;
-  --ring: rgba(30, 58, 95, 0.25);
+  --border: #e5e7eb;
+  --input-border: #d1d5db;
+  --input-focus: #4a7cff;
+  --ring: rgba(74, 124, 255, 0.25);
 }
 
 @theme inline {
@@ -42,28 +42,20 @@
   --color-ring: var(--ring);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --animate-slide-in: slide-in 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  --animate-fade-in: fade-in 0.25s ease;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0f1729;
-    --foreground: #e2e8f0;
-    --primary: #5b8cc9;
-    --primary-hover: #7aa3d9;
-    --primary-light: #1a2744;
-    --accent: #f0a050;
-    --accent-hover: #e8913a;
-    --surface: #1a2744;
-    --muted: #94a3b8;
-    --border: #2d3f5e;
-    --input-border: #3b5278;
-    --input-focus: #5b8cc9;
-    --ring: rgba(91, 140, 201, 0.3);
-    --error-surface: #5c1e1e;
-    --error-border: #a33b3b;
-    --success-surface: #052e16;
-  }
+@keyframes slide-in {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
 }
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
 
 body {
   background: var(--background);

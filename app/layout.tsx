@@ -14,11 +14,14 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: {
-    default: 'Contour Education',
-    template: '%s | Contour Education',
+  icons: {
+    icon: "/Contour-Education-2023-Logo.png"
   },
-  description: 'Your learning management platform',
+  title: {
+    default: "Contour Education",
+    template: "%s | Contour Education",
+  },
+  description: "Your learning management platform",
 };
 
 export default function RootLayout({

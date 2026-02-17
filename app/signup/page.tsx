@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { SignupForm } from '@/components/signupForm'
+import Image from "next/image";
 
 export const metadata: Metadata = {
   title: "Sign Up",
@@ -13,6 +14,11 @@ export default function SignupPage() {
       <div
         className="w-full max-w-md rounded-xl border border-border bg-surface p-8 shadow-sm">
         <div className="mb-8 text-center">
+          <Image
+            src="https://www.contoureducation.com.au/wp-content/uploads/2023/08/Contour-Education-2023-Logo.png"
+            alt="Contour Education"
+            className="mx-auto mb-6 h-8"
+          />
           <h1 className="text-2xl font-bold tracking-tight text-foreground">
             Create your account
           </h1>
