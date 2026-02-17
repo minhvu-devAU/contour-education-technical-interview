@@ -5,9 +5,7 @@ import Link from "next/link";
 import { Loader2 } from "lucide-react";
 import { ValidationError } from "yup";
 import { signupSchema } from "@/lib/validations/signupSchema";
-import { createClient } from "@/lib/supabase/client";
-import { useRouter } from "next/navigation";
-import type { ApiErrorResponse } from "@/types/api";
+import { signup } from "@/app/actions/auth";
 
 export function SignupForm() {
   const [firstName, setFirstName] = useState("");
@@ -19,24 +17,12 @@ export function SignupForm() {
   const [error, setError] = useState<string | null>(null);
   const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
   const [loading, setLoading] = useState(false);
-  const router = useRouter();
 
   async function handleSubmit(e: React.SubmitEvent<HTMLFormElement>) {
     e.preventDefault();
     setError(null);
     setFieldErrors({});
     setLoading(true);
-
-    let supabase;
-    try {
-      supabase = createClient();
-    } catch(error) {
-      // Enable for debug/tracing in production if we were using observability sentry/newrelic
-      // console.error(error.message)
-      setError("Something went wrong. Please try again later.");
-      setLoading(false);
-      return;
-    }
 
     try {
       await signupSchema.validate(
@@ -59,40 +45,13 @@ export function SignupForm() {
       return;
     }
 
-    const { error: authError } = await supabase.auth.signUp({
-      email,
-      password,
-    });
+    const result = await signup(email, password, firstName, lastName, phone);
 
-    if (authError) {
-      setError(authError.message);
+    if (result?.error) {
+      setError(result.error);
       setLoading(false);
       return;
     }
-
-    try {
-      const response = await fetch("/api/students", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ firstName, lastName, phone }),
-      });
-
-      if (!response.ok) {
-        // Enable for debug/tracing in production if we were using observability sentry/newrelic
-        // const jsonResponse: ApiErrorResponse = await response.json();
-        // console.error(jsonResponse.error);
-        setError("Failed to create student record");
-        setLoading(false);
-        return;
-      }
-    } catch {
-      setError("Network error. Please try again.");
-      setLoading(false);
-      return;
-    }
-
-    // Only push/redirect to dashboard if everything passed
-    router.push("/dashboard");
   }
 
   function inputClasses(field: string): string {

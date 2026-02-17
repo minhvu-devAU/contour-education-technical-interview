@@ -4,32 +4,26 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { Loader2 } from "lucide-react";
 import { ValidationError } from "yup";
-import { createClient } from "@/lib/supabase/client";
 import { loginSchema } from "@/lib/validations/loginSchema";
-import { useRouter } from "next/navigation";
+import { login } from "@/app/actions/auth";
+
 
 export function LoginForm() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
   const [loading, setLoading] = useState(false);
-  const router = useRouter();
 
-  async function handleSubmit(e: React.SubmitEvent<HTMLFormElement>) {
-    e.preventDefault();
+  const resetForm = () => {
     setError(null);
     setFieldErrors({});
     setLoading(true);
+  }
 
-    let supabase;
-    try {
-      supabase = createClient();
-    } catch {
-      setError("Something went wrong. Please try again later.");
-      setLoading(false);
-      return;
-    }
+  async function handleSubmit(e: React.SubmitEvent<HTMLFormElement>) {
+    e.preventDefault();
+    resetForm();
 
     try {
       await loginSchema.validate(
@@ -52,19 +46,13 @@ export function LoginForm() {
       return;
     }
 
-    const { error } = await supabase.auth.signInWithPassword({
-        email: email,
-        password: password,
-    });
+    const result = await login(email, password);
 
-    if (error) {
-      setError(error.message);
+    if (result?.error) {
+      setError(result.error);
       setLoading(false);
       return;
     }
-
-    // Only push/redirect to dashboard if everything passed
-    router.push("/dashboard");
   }
 
   return (
