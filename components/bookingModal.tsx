@@ -49,6 +49,8 @@ export function BookingModal({ onClose, onSuccess }: BookingModalProps) {
           }
         });
         setFieldErrors(errors);
+      } else {
+        setError("An unexpected error occurred");
       }
 
       setLoading(false);

@@ -29,7 +29,7 @@ export function ConsultationCard({
       consultation.is_complete,
     );
 
-    if (result.error) {
+    if (result?.error) {
       setLoading(false);
       return;
     }
