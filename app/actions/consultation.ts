@@ -61,7 +61,8 @@ export async function toggleConsultationComplete(id: string, isComplete: boolean
 
   const { error } = await supabase.from("consultations")
     .update({ is_complete: !isComplete })
-    .eq("id", id);
+    .eq("id", id)
+    .eq("user_id", data.user.id);
 
   if (error) {
     return { error: error.message };
