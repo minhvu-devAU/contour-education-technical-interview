@@ -1,35 +1,40 @@
+"use server"
+
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
-import { LogoutButton } from "@/components/logoutButton";
 
 export default async function DashboardPage() {
   const supabase = await createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  const { data: { user } } = await supabase.auth.getUser();
 
   if (!user) {
     redirect("/login");
   }
 
-  return (
-    <main className="mx-auto max-w-4xl px-4 py-12">
-      <div
-        className="flex items-center justify-between border-b border-border pb-6">
-        <div>
-          <h1 className="text-2xl font-bold tracking-tight text-foreground">
-            Dashboard
-          </h1>
-          <p className="mt-1 text-sm text-muted">
-            Welcome, {user.email}
-          </p>
-        </div>
-        <LogoutButton />
-      </div>
+  const { data: student, error: studentDatabaseError } = await supabase
+    .from("students")
+    .select("*")
+    .eq("id", user.id)
+    .single();
 
-      <div className="mt-12 text-center text-muted">
-        <p>Your consultations will appear here.</p>
-      </div>
-    </main>
+  if (studentDatabaseError) {
+    // Enable for debug/tracing in production if we were using observability sentry/newrelic
+    //console.error("Failed to fetch student:", studentError);
+    redirect("/error");
+  }
+
+  const { data: consultationsData, error: consultationsDatabaseError} = await supabase
+    .from("consultations")
+    .select("*")
+    .eq("user_id", student.id);
+
+  if (consultationsDatabaseError) {
+    // Enable for debug/tracing in production if we were using observability sentry/newrelic
+    // console.error("Failed to fetch consultations:", consultationsError);
+    redirect("/error");
+  }
+
+  return (
+      <h1>test</h1>
   )
 }
