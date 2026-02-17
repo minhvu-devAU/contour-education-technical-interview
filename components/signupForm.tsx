@@ -194,14 +194,7 @@ export function SignupForm() {
           + " disabled:cursor-not-allowed disabled:opacity-50"
         }
       >
-        {loading ? (
-          <>
-            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-            Creating account...
-          </>
-        ) : (
-          "Create account"
-        )}
+        Create account
       </button>
 
       <p className="text-center text-sm text-muted">

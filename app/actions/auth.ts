@@ -2,8 +2,18 @@
 
 import { createClient } from "@/lib/supabase/server";
 import { redirect } from "next/navigation";
+import { loginSchema } from "@/lib/validations/loginSchema";
+import { signupSchema } from "@/lib/validations/signupSchema";
 
 export async function login(email: string, password: string) {
+  // Use Yup schema for input validation again (server-side)
+  try {
+    await loginSchema.validate({ email, password });
+  } catch {
+    // console.error("Schema validation failed");
+    return { error: "Something went wrong. Please try again later." };
+  }
+
   let supabase;
   try {
     supabase = await createClient();
@@ -30,6 +40,17 @@ export async function signup(
   lastName: string,
   phone: string
 ) {
+  // Use Yup schema for input validation again (server-side)
+  try {
+    await signupSchema.validate({
+      email, password, confirmPassword: password,
+      firstName, lastName, phone,
+    });
+  } catch {
+    // console.error("Schema validation failed");
+    return { error: "Something went wrong. Please try again later." };
+  }
+
   let supabase;
   try {
     supabase = await createClient();
@@ -47,7 +68,7 @@ export async function signup(
   }
 
   if (!data.user) {
-    return { error: "Failed to create new user.Please try again later."};
+    return { error: "Failed to create new user. Please try again later."};
   }
 
   const { error: studentDatabaseError } = await supabase

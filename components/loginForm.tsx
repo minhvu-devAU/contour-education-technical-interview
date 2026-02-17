@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
-import { Loader2 } from "lucide-react";
+
 import { ValidationError } from "yup";
 import { loginSchema } from "@/lib/validations/loginSchema";
 import { login } from "@/app/actions/auth";
@@ -122,14 +122,7 @@ export function LoginForm() {
           + ' disabled:cursor-not-allowed disabled:opacity-50'
         }
       >
-        {loading ? (
-          <>
-            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-            Signing in...
-          </>
-        ) : (
-          "Sign in"
-        )}
+        Sign in
       </button>
 
       <p className="text-center text-sm text-muted">

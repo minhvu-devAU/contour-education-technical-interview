@@ -13,3 +13,8 @@ export const consultationSchema = Yup.object({
       }
     ),
 });
+
+export const toggleConsultationSchema = Yup.object({
+  id: Yup.string().required("Consultation ID is required").uuid("Invalid consultation ID"),
+  isComplete: Yup.boolean().required("Completion status is required"),
+});
