@@ -11,12 +11,12 @@ import { login } from "@/app/actions/auth";
 export function LoginForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState("");
   const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
   const [loading, setLoading] = useState(false);
 
   const resetForm = () => {
-    setError(null);
+    setError("");
     setFieldErrors({});
     setLoading(true);
   }

@@ -5,6 +5,7 @@ import Image from "next/image"
 import { ConsultationCard } from "@/components/consultationCard"
 import type { Consultation } from "@/types/consultation"
 import { logout } from "@/app/actions/auth";
+import { BookingModal } from "@/components/bookingModal";
 
 type ConsultationDashboardProps = {
   firstName: string
@@ -92,6 +93,10 @@ export function ConsultationDashboard({
             ))}
           </div>
 
+          {/*  Booking consultationn modal */}
+          {showModal && (
+              <BookingModal onClose={() => setShowModal(false)}/>
+          )}
 
       </div>
     </div>
