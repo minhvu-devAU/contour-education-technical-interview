@@ -17,7 +17,7 @@ export default function ErrorPage() {
         </p>
 
         <div className="flex flex-col gap-3 sm:flex-row sm:justify-center">
-          <Link href="/login" className="rounded-lg border border-border px-6 py-2.5 text-sm font-medium text-foreground hover:bg-primary-light transition-colors">
+          <Link href="/login" className="rounded-lg border border-border px-6 py-2.5 text-sm font-medium text-foreground transition-colors">
             Go to Login
           </Link>
         </div>
