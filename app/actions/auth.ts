@@ -6,6 +6,7 @@ import { loginSchema } from "@/lib/validations/loginSchema";
 import { signupSchema } from "@/lib/validations/signupSchema";
 
 export async function login(email: string, password: string) {
+
   // Use Yup schema for input validation again (server-side)
   try {
     await loginSchema.validate({ email, password });

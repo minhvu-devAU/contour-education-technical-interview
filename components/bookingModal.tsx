@@ -1,4 +1,4 @@
-"use client";
+"use client"
 
 import React, { useState } from "react";
 import { ValidationError } from "yup";
@@ -6,9 +6,9 @@ import { consultationSchema } from "@/lib/validations/consultationSchema";
 import { createConsultation } from "@/app/actions/consultation";
 import type { Consultation } from "@/types/consultation";
 
-interface BookingModalProps {
-  onClose: () => void;
-  onSuccess: (consultation: Consultation) => void;
+type BookingModalProps = {
+  onClose: () => void
+  onSuccess: (consultation: Consultation) => void
 }
 
 export function BookingModal({ onClose, onSuccess }: BookingModalProps) {

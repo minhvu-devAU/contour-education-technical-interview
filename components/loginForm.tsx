@@ -2,7 +2,6 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
-
 import { ValidationError } from "yup";
 import { loginSchema } from "@/lib/validations/loginSchema";
 import { login } from "@/app/actions/auth";

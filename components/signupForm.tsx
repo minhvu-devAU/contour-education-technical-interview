@@ -1,8 +1,7 @@
-"use client";
+"use client"
 
 import React, { useState } from "react";
 import Link from "next/link";
-import { Loader2 } from "lucide-react";
 import { ValidationError } from "yup";
 import { signupSchema } from "@/lib/validations/signupSchema";
 import { signup } from "@/app/actions/auth";

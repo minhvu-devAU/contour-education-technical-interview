@@ -8,7 +8,7 @@ export async function createClient() {
 
   if (!supabaseUrl || !supabaseAnonKey) {
     throw new Error(
-        "Missing credentials for NEXT_PUBLIC_SUPABASE_URL or NEXT_PUBLIC_SUPABASE_ANON_KEY"
+      "Missing credentials for NEXT_PUBLIC_SUPABASE_URL or NEXT_PUBLIC_SUPABASE_ANON_KEY"
     );
   }
 
