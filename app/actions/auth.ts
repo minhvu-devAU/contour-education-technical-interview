@@ -37,7 +37,7 @@ export async function signup(
     return { error: "Something went wrong. Please try again later." };
   }
 
-  const { error: authError } = await supabase.auth.signUp({
+  const { data, error: authError } = await supabase.auth.signUp({
     email,
     password,
   });
@@ -46,13 +46,23 @@ export async function signup(
     return { error: authError.message };
   }
 
+  if (!data.user) {
+    return { error: "Failed to create new user.Please try again later."};
+  }
+
   const { error: studentDatabaseError } = await supabase
     .from("students")
-    .insert({ first_name: firstName, last_name: lastName, phone });
+    .insert({
+      id: data.user.id,
+      first_name: firstName,
+      last_name: lastName,
+      phone
+    });
+
 
   if (studentDatabaseError) {
-    console.error(studentDatabaseError);
-    return { error: "Failed to create student record" };
+    //console.error(studentDatabaseError);
+    return { error: "Failed to create student record"+ JSON.stringify(studentDatabaseError) };
   }
 
   redirect("/dashboard");
