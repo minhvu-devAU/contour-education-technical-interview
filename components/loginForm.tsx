@@ -120,7 +120,6 @@ export function LoginForm() {
           + ' rounded-lg bg-primary px-4 py-2.5'
           + ' text-sm font-semibold text-white'
           + ' transition-colors'
-          + ' hover:bg-primary-hover'
           + ' focus:outline-none focus:ring-2'
           + ' focus:ring-ring focus:ring-offset-2'
           + ' disabled:cursor-not-allowed disabled:opacity-50'
@@ -140,7 +139,7 @@ export function LoginForm() {
           {"Don't have an account?"}
         <Link
           href="/signup"
-          className="font-medium text-primary underline-offset-4 hover:underline">
+          className="font-medium text-primary underline-offset-4">
           Sign up
         </Link>
       </p>

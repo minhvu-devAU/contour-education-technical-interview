@@ -2,6 +2,7 @@
 
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
+import { ConsultationDashboard } from "@/components/consultationDashboard";
 
 export default async function DashboardPage() {
   const supabase = await createClient();
@@ -35,6 +36,10 @@ export default async function DashboardPage() {
   }
 
   return (
-      <h1>test</h1>
+    <ConsultationDashboard
+      firstName={student.first_name}
+      lastName={student.last_name}
+      consultations={consultationsData ?? []}
+    />
   )
 }

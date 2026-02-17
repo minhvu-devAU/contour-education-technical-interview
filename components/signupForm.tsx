@@ -54,7 +54,7 @@ export function SignupForm() {
     }
   }
 
-  function inputClasses(field: string): string {
+  const inputClasses = (field: string): string => {
     return "w-full rounded-lg border"
       + ` ${fieldErrors[field] ? "border-error" : "border-input-border"}`
       + " bg-surface px-3.5 py-2.5 text-sm text-foreground"
@@ -84,8 +84,7 @@ export function SignupForm() {
             type="text"
             value={firstName}
             onChange={(e) => setFirstName(e.target.value)}
-            autoComplete="given-name"
-            placeholder="Jane"
+            placeholder="First"
             className={inputClasses("firstName")}
           />
           {fieldErrors.firstName && (
@@ -102,7 +101,7 @@ export function SignupForm() {
             type="text"
             value={lastName}
             onChange={(e) => setLastName(e.target.value)}
-            placeholder="Doe"
+            placeholder="Last"
             className={inputClasses("lastName")}
           />
           {fieldErrors.lastName && (
@@ -189,7 +188,6 @@ export function SignupForm() {
           + " rounded-lg bg-primary px-4 py-2.5"
           + " text-sm font-semibold text-white"
           + " transition-colors"
-          + " hover:bg-primary-hover"
           + " focus:outline-none focus:ring-2"
           + " focus:ring-ring focus:ring-offset-2"
           + " disabled:cursor-not-allowed disabled:opacity-50"
@@ -207,7 +205,7 @@ export function SignupForm() {
 
       <p className="text-center text-sm text-muted">
         Already have an account?{' '}
-        <Link href="/login" className="font-medium text-primary underline-offset-4 hover:underline">
+        <Link href="/login" className="font-medium text-primary underline-offset-4">
           Sign in
         </Link>
       </p>

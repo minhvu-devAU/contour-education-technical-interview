@@ -62,7 +62,7 @@ export async function signup(
 
   if (studentDatabaseError) {
     //console.error(studentDatabaseError);
-    return { error: "Failed to create student record"+ JSON.stringify(studentDatabaseError) };
+    return { error: "Failed to create student record" };
   }
 
   redirect("/dashboard");
