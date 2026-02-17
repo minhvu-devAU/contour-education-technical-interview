@@ -29,3 +29,20 @@ export async function createConsultation(firstName: string, lastName: string, re
 
     return { data: consultation };
 }
+
+export async function toggleConsultationComplete(id: string, isComplete: boolean) {
+    let supabase;
+    try {
+        supabase = await createClient();
+    } catch {
+        return { error: "Something went wrong. Please try again later." };
+    }
+
+    const { error } = await supabase.from("consultations")
+        .update({ is_complete: !isComplete })
+        .eq("id", id);
+
+    if (error) {
+        return { error: error.message };
+    }
+}

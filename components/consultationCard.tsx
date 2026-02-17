@@ -1,8 +1,10 @@
 "use client"
 
-import { Calendar, Clock, Check, Undo2 } from "lucide-react";
+import { Calendar, Clock, Check, Undo2, Loader2 } from "lucide-react";
 import type { Consultation } from "@/types/consultation";
 import { formatDate, formatTime } from "@/lib/utils/date";
+import { toggleConsultationComplete } from "@/app/actions/consultation";
+import { useState } from "react";
 
 type ConsultationCardProps = {
   consultation: Consultation
@@ -14,6 +16,28 @@ export function ConsultationCard({
   onToggle,
 }: ConsultationCardProps) {
   const { is_complete } = consultation;
+  const [loading, setLoading] = useState(false);
+
+  async function handleMarkAsComplete() {
+    setLoading(true);
+
+    // Put a 2 sec delay for visualization
+    await new Promise(resolve => setTimeout(resolve, 2000));
+
+    const result = await toggleConsultationComplete(
+      consultation.id,
+      consultation.is_complete,
+    );
+
+    if (result.error) {
+      setLoading(false);
+      return;
+    }
+
+    // If database update is success, provide the consultation id to the parent to update the is_complete status
+    onToggle(consultation.id);
+    setLoading(false);
+  }
 
   return (
     <div className={`rounded-xl border px-6 py-5 ${
@@ -53,12 +77,14 @@ export function ConsultationCard({
         </div>
 
         <button
-          onClick={() => onToggle(consultation.id)}
+          onClick={handleMarkAsComplete}
           className={`flex items-center gap-1.5 rounded-lg border px-3 py-1.5 text-[13px] font-medium ${
             is_complete ? "border-border text-muted" : "border-success text-success"
           }`}
         >
-          {is_complete ? (
+          {loading ? (
+            <><Loader2 size={14} className="animate-spin" /> Updating...</>
+          ) : is_complete ? (
             <><Undo2 size={14} /> Mark Incomplete</>
           ) : (
             <><Check size={14} /> Mark Complete</>

@@ -19,18 +19,18 @@ export function ConsultationDashboard({
     consultations: initialConsultations,
   }: ConsultationDashboardProps) {
 
-  const sortByDatetime = (a: Consultation, b: Consultation): number => {
-    return (new Date(a.datetime).getTime() - new Date(b.datetime).getTime());
-  }
-
   const [consultations, setConsultations] = useState(initialConsultations);
   const [showModal, setShowModal] = useState(false);
-
   const toggleComplete = (id: string): void => {
-    console.log("toggling complete.....");
+    setConsultations((prev) => {
+      return prev.map((consultation) => {
+        if (consultation.id === id) {
+          return { ...consultation, is_complete: !consultation.is_complete };
+        }
+        return consultation;
+      });
+    });
   }
-
-  const sortedConsultations = consultations.toSorted(sortByDatetime)
 
   return (
       <div className="min-h-screen bg-background">
@@ -79,12 +79,12 @@ export function ConsultationDashboard({
 
           {/* List of consultations from database */}
           <div className="flex flex-col gap-2.5 pb-16">
-            {sortedConsultations.length === 0 && (
+            {consultations.length === 0 && (
                 <div className="py-12 text-center text-muted">
                   No consultations yet. Book your first!
                 </div>
             )}
-            {sortedConsultations.map((consultation) => (
+            {consultations.map((consultation) => (
                 <ConsultationCard
                     key={consultation.id}
                     consultation={consultation}
