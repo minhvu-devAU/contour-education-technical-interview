@@ -4,12 +4,14 @@ import React, { useState } from "react";
 import { ValidationError } from "yup";
 import { consultationSchema } from "@/lib/validations/consultationSchema";
 import { createConsultation } from "@/app/actions/consultation";
+import type { Consultation } from "@/types/consultation";
 
 interface BookingModalProps {
   onClose: () => void;
+  onSuccess: (consultation: Consultation) => void;
 }
 
-export function BookingModal({ onClose }: BookingModalProps) {
+export function BookingModal({ onClose, onSuccess }: BookingModalProps) {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [reason, setReason] = useState("");
@@ -57,9 +59,14 @@ export function BookingModal({ onClose }: BookingModalProps) {
 
     if (result?.error) {
       setError(result.error);
+      setLoading(false);
       return;
     }
 
+    if (result?.data) {
+      // Calling parents to update the consultation list
+      onSuccess(result.data as Consultation);
+    }
     onClose();
   }
 

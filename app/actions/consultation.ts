@@ -14,15 +14,18 @@ export async function createConsultation(firstName: string, lastName: string, re
         return { error: "Failed to get user."};
     }
 
-    const { error } = await supabase.from("consultations").insert({
+    // Insert consultation into database and return the consultation object to update frontend consultation list
+    const { data: consultation, error } = await supabase.from("consultations").insert({
         user_id: data.user.id,
         first_name: firstName,
         last_name: lastName,
         reason: reason,
         datetime: datetime,
-    })
+    }).select().single();
 
     if (error) {
         return { error: error.message };
     }
+
+    return { data: consultation };
 }

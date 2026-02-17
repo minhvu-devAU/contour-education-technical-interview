@@ -95,7 +95,12 @@ export function ConsultationDashboard({
 
           {/*  Booking consultationn modal */}
           {showModal && (
-              <BookingModal onClose={() => setShowModal(false)}/>
+              <BookingModal
+                onClose={() => setShowModal(false)}
+                onSuccess={(consultation) => {
+                  setConsultations((prev) => [...prev, consultation]);
+                }}
+              />
           )}
 
       </div>
