@@ -4,7 +4,7 @@ export function formatDate(dt: string): string {
     day: "numeric",
     month: "short",
     year: "numeric",
-  })
+  });
 }
 
 export function formatTime(dt: string): string {
@@ -12,5 +12,5 @@ export function formatTime(dt: string): string {
     hour: "2-digit",
     minute: "2-digit",
     hour12: true,
-  })
+  });
 }

@@ -41,6 +41,7 @@ export function SignupForm() {
       } else {
         setError("An unexpected error occurred");
       }
+
       setLoading(false);
       return;
     }

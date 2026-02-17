@@ -16,6 +16,7 @@ export function BookingModal({ onClose }: BookingModalProps) {
   const [datetime, setDatetime] = useState("");
   const [error, setError] = useState("");
   const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
+  const [loading, setLoading] = useState(false);
 
   const inputClasses = (field: string): string => {
     return "w-full rounded-lg border"
@@ -30,6 +31,7 @@ export function BookingModal({ onClose }: BookingModalProps) {
     e.preventDefault();
     setError("");
     setFieldErrors({});
+    setLoading(true);
 
     try {
       await consultationSchema.validate(
@@ -46,6 +48,8 @@ export function BookingModal({ onClose }: BookingModalProps) {
         });
         setFieldErrors(errors);
       }
+
+      setLoading(false);
       return;
     }
 
@@ -157,7 +161,8 @@ export function BookingModal({ onClose }: BookingModalProps) {
             </button>
             <button
               type="submit"
-              className="rounded-[10px] bg-primary px-7 py-3 text-[15px] font-semibold text-white"
+              disabled={loading}
+              className="rounded-[10px] bg-primary px-7 py-3 text-[15px] font-semibold text-white disabled:cursor-not-allowed disabled:opacity-50"
             >
               Book Consultation
             </button>

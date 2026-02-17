@@ -15,15 +15,11 @@ export function LoginForm() {
   const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
   const [loading, setLoading] = useState(false);
 
-  const resetForm = () => {
+  async function handleSubmit(e: React.SubmitEvent<HTMLFormElement>) {
+    e.preventDefault();
     setError("");
     setFieldErrors({});
     setLoading(true);
-  }
-
-  async function handleSubmit(e: React.SubmitEvent<HTMLFormElement>) {
-    e.preventDefault();
-    resetForm();
 
     try {
       await loginSchema.validate(
@@ -42,6 +38,7 @@ export function LoginForm() {
       } else {
         setError("An unexpected error occurred");
       }
+
       setLoading(false);
       return;
     }
