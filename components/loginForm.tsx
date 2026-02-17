@@ -8,7 +8,6 @@ import { createClient } from "@/lib/supabase/client";
 import { loginSchema } from "@/lib/validations/loginSchema";
 import { useRouter } from "next/navigation";
 
-
 export function LoginForm() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');

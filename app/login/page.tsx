@@ -15,7 +15,9 @@ export default function LoginPage() {
           <Image
             src="/Contour-Education-2023-Logo.png"
             alt="Contour Education"
-            className="mx-auto mb-6 h-8"
+            width={200}
+            height={32}
+            className="mx-auto mb-6 h-8 w-auto"
           />
           <h1 className="text-2xl font-bold tracking-tight text-foreground">
             Welcome back
