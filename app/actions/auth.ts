@@ -15,12 +15,7 @@ export async function login(email: string, password: string) {
     return { error: "Something went wrong. Please try again later." };
   }
 
-  let supabase;
-  try {
-    supabase = await createClient();
-  } catch {
-    return { error: "Something went wrong. Please try again later." };
-  }
+  const supabase = await createClient();
 
   const { error } = await supabase.auth.signInWithPassword({
     email,
@@ -52,12 +47,7 @@ export async function signup(
     return { error: "Something went wrong. Please try again later." };
   }
 
-  let supabase;
-  try {
-    supabase = await createClient();
-  } catch {
-    return { error: "Something went wrong. Please try again later." };
-  }
+  const supabase = await createClient();
 
   const { data, error: authError } = await supabase.auth.signUp({
     email,
@@ -91,12 +81,7 @@ export async function signup(
 }
 
 export async function logout() {
-  let supabase;
-  try {
-    supabase = await createClient();
-  } catch {
-    redirect("/login");
-  }
+  const supabase = await createClient();
   await supabase.auth.signOut();
   redirect("/login");
 }

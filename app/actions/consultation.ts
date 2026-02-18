@@ -10,12 +10,7 @@ export async function createConsultation(firstName: string, lastName: string, re
     return { error: "Invalid input." };
   }
 
-  let supabase;
-  try {
-    supabase = await createClient();
-  } catch {
-    return { error: "Something went wrong. Please try again later." };
-  }
+  const supabase = await createClient();
 
   // Only logged-in user can continue
   const { data } = await supabase.auth.getUser();
@@ -46,12 +41,7 @@ export async function toggleConsultationComplete(id: string, isComplete: boolean
     return { error: "Invalid input." };
   }
 
-  let supabase;
-  try {
-    supabase = await createClient();
-  } catch {
-    return { error: "Something went wrong. Please try again later." };
-  }
+  const supabase = await createClient();
 
   // Only logged-in user can continue
   const { data } = await supabase.auth.getUser();
