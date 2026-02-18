@@ -4,11 +4,11 @@ export const signupSchema = Yup.object({
   firstName: Yup.string()
     .required("First name is required")
     .max(100, "First name must be under 100 characters")
-    .matches(/^[^\d]+$/, "Must not contain numbers"),
+    .matches(/^[^\d]*$/, "Must not contain numbers"),
   lastName: Yup.string()
     .required("Last name is required")
     .max(100, "Last name must be under 100 characters")
-    .matches(/^[^\d]+$/, "Must not contain numbers"),
+    .matches(/^[^\d]*$/, "Must not contain numbers"),
   email: Yup.string()
     .email("Invalid email address")
     .required("Email is required"),
